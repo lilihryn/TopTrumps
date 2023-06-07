@@ -21,19 +21,17 @@ def select_pokemon_computer():
     pokemon_for_battle = random_pokemon()
     # Asks to choose stat for computer
     while True:
-        print('Provide stat you want to beet on(e.g. id, height, weight)')
+        print('Provide stat for computer you want to beet on(e.g. id, height, weight)')
         computer_stat = input()
         # takes user input and checks if the value is inside the dictionary
         if computer_stat in pokemon_for_battle:
-            computer_stat = pokemon_for_battle.get(computer_stat)
+            computer_stat = pokemon_for_battle[computer_stat]
             # prints the name of pokemon chosen
-            print(pokemon_for_battle['name'])
+            print('You are fighting against: ' + pokemon_for_battle['name'])
             break
         # if value is not in the dictionary( for ex. typo)asks to provide it again
-
         else:
             print('Invalid value, try again')
-
     return computer_stat, pokemon_for_battle
 
 
@@ -56,11 +54,14 @@ def generate_random_pokemon_player():
             user_stat = input()
 
             if user_stat in chosen_pokemon:
-                user_stat = chosen_pokemon.get(user_stat)
+                user_stat = chosen_pokemon[user_stat]
                 return user_stat, chosen_pokemon
 
-        print("Invalid choice or stat. Please try again.")
+            print("Invalid stat. Please try again.")
+        else:
+            print("Invalid choice. Please try again.")
 
+    return None, None
 
 
 def compare_stats(computer_stat, player_stat):
@@ -78,11 +79,11 @@ def compare_stats(computer_stat, player_stat):
     return winner
 
 
-def record_scores(user_stat, computer_stat, chosen_pokemon, opponent_pokemon, winner):
+def record_scores(user_stat, computer_stat, chosen_pokemon, pokemon_for_battle, winner):
     with open('scores.txt', 'a') as file:
-        file.write('User: {} ({}), Opponent: {} ({}), Stat: {} {}, Winner: {} \n'.format(
+        file.write('User: {} ({}), Opponent: {} ({}), Stat: {}, Winner: {} \n'.format(
             chosen_pokemon['name'], chosen_pokemon['id'],
-            opponent_pokemon['name'], opponent_pokemon['id'],
+            pokemon_for_battle['name'], pokemon_for_battle['id'],
             computer_stat, user_stat, winner))
 
 
@@ -99,8 +100,9 @@ def lets_play_again():
 
     for _ in range(3):
         # declaring all the variables
-        computer_stat, pokemon_for_battle = select_pokemon_computer()
         user_stat, chosen_pokemon = generate_random_pokemon_player()
+        computer_stat, pokemon_for_battle = select_pokemon_computer()
+
         winner = compare_stats(computer_stat, user_stat)
         # Changes the score depending on who was the winner in the end of the round.
 
