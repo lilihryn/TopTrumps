@@ -1,0 +1,8 @@
+Total Matches Played:
+User: machop (66), Opponent: diglett (50), Stat: 50 66, Winner: Computer 
+User: slowbro (80), Opponent: tauros (128), Stat: 128 80, Winner: Player 
+User: dragonair (148), Opponent: cubone (104), Stat: 104 148, Winner: Player 
+User: raticate (20), Opponent: poliwrath (62), Stat: 62 20, Winner: Computer 
+User: golem (76), Opponent: nidoran-f (29), Stat: 29 76, Winner: Player 
+Total score for three rounds for player is: 2 and for computer is: 1 
+User: lickitung (108), Opponent: sandshrew (27), Stat: 27 655, Winner: Computer 
