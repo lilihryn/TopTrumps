@@ -1,5 +1,6 @@
 Total Matches Played:
-User: pidgeotto (17), Opponent: kangaskhan (115), Stat: 115, Winner: 17 
-User: snorlax (143), Opponent: doduo (84), Stat: 14, Winner: 21 
-User: electrode (101), Opponent: nidorina (30), Stat: 30, Winner: 101 
-User: nidorina (30), Opponent: dodrio (85), Stat: 85, Winner: 30 
+User: charmeleon (5), Opponent: doduo (84), Stat: 84 5, Winner: Computer 
+User: victreebel (71), Opponent: dodrio (85), Stat: 85 71, Winner: Computer 
+User: wigglytuff (40), Opponent: magnemite (81), Stat: 81 40, Winner: Computer 
+Total score for three rounds for player is: 0 and for computer is: 3 
+User: electabuzz (125), Opponent: arcanine (59), Stat: 59 125, Winner: Player 

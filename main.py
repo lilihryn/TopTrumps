@@ -21,17 +21,18 @@ def select_pokemon_computer():
     pokemon_for_battle = random_pokemon()
     # Asks to choose stat for computer
     while True:
-        print('Provide stat for computer you want to beet on(e.g. id, height, weight)')
+        print('Provide stat you the computer want to beet on(e.g. id, height, weight)')
         computer_stat = input()
         # takes user input and checks if the value is inside the dictionary
         if computer_stat in pokemon_for_battle:
-            computer_stat = pokemon_for_battle[computer_stat]
-            # prints the name of pokemon chosen
-            print('You are fighting against: ' + pokemon_for_battle['name'])
+            computer_stat = int(pokemon_for_battle.get(computer_stat))
+            # prints the name of Pokémon chosen
+            print('Computer chose: {}'.format(pokemon_for_battle['name']))
             break
         # if value is not in the dictionary( for ex. typo)asks to provide it again
         else:
             print('Invalid value, try again')
+
     return computer_stat, pokemon_for_battle
 
 
@@ -50,18 +51,17 @@ def generate_random_pokemon_player():
         chosen_pokemon = pokemon_list.get(choice)
 
         if chosen_pokemon is not None:
-            print('Provide stat you want to bet on (e.g. id, height, weight)')
-            user_stat = input()
+            while True:
+                print('Provide stat you want to bet on (e.g. id, height, weight)')
+                user_stat = input()
 
-            if user_stat in chosen_pokemon:
-                user_stat = chosen_pokemon[user_stat]
-                return user_stat, chosen_pokemon
+                if user_stat in chosen_pokemon:
+                    user_stat = chosen_pokemon.get(user_stat)
+                    return user_stat, chosen_pokemon
 
-            print("Invalid stat. Please try again.")
+                print("Invalid stat. Please try again.")
         else:
             print("Invalid choice. Please try again.")
-
-    return None, None
 
 
 def compare_stats(computer_stat, player_stat):
@@ -79,11 +79,11 @@ def compare_stats(computer_stat, player_stat):
     return winner
 
 
-def record_scores(user_stat, computer_stat, chosen_pokemon, pokemon_for_battle, winner):
+def record_scores(user_stat, computer_stat, chosen_pokemon, opponent_pokemon, winner):
     with open('scores.txt', 'a') as file:
-        file.write('User: {} ({}), Opponent: {} ({}), Stat: {}, Winner: {} \n'.format(
+        file.write('User: {} ({}), Opponent: {} ({}), Stat: {} {}, Winner: {} \n'.format(
             chosen_pokemon['name'], chosen_pokemon['id'],
-            pokemon_for_battle['name'], pokemon_for_battle['id'],
+            opponent_pokemon['name'], opponent_pokemon['id'],
             computer_stat, user_stat, winner))
 
 
@@ -97,12 +97,13 @@ def lets_play_again():
     # scores for three rounds
     total_score_computer = 0
     total_score_player = 0
+    round_counter = 0
 
-    for _ in range(3):
+    while round_counter < 3:
+        round_counter += 1
         # declaring all the variables
         user_stat, chosen_pokemon = generate_random_pokemon_player()
         computer_stat, pokemon_for_battle = select_pokemon_computer()
-
         winner = compare_stats(computer_stat, user_stat)
         # Changes the score depending on who was the winner in the end of the round.
 
@@ -118,6 +119,13 @@ def lets_play_again():
             total_score_computer = total_score_computer
             record_scores(user_stat, computer_stat, chosen_pokemon, pokemon_for_battle, winner)
         # Compares total scores and declares a winner
+
+        print("Would you like to continue? (y/n)")
+        answer = input()
+
+        if answer != 'y':
+            print("See you later, Pokemon fighter")
+            return total_score_player, total_score_computer
 
     if total_score_player > total_score_computer:
         print("Best pokemon fighter for today is player with score: computer {} vs player {} "
